@@ -1,3 +1,4 @@
+from django.core.exceptions import ValidationError
 from django.db import models
 
 
@@ -37,8 +38,13 @@ class Book(models.Model):
     publisher = models.ForeignKey(Publisher, on_delete=models.CASCADE, related_name="books")
     language = models.ForeignKey(Language, on_delete=models.CASCADE, related_name="books")
 
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=['name', 'publication_date', 'author', 'genre', 'publisher', 'language'],
+                name='unique_book_constraint'
+            )
+        ]
+
     def __str__(self):
         return f"{self.name} by {self.author}"
-
-
-
