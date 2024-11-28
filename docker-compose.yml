@@ -1,0 +1,12 @@
+version: "3.7"
+
+services:
+
+  books_api:
+    container_name: books_api
+    restart: unless-stopped
+    build: ./
+    command: sh -c "python manage.py migrate && python manage.py test && python manage.py runserver"
+      - ./:/usr/src/app/
+    ports:
+      - 8000:8000
