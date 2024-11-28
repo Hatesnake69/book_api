@@ -6,7 +6,7 @@ services:
     container_name: books_api
     restart: unless-stopped
     build: ./
-    command: sh -c "python manage.py migrate && python manage.py test && python manage.py runserver"
+    command: sh -c "python manage.py migrate && python manage.py test && python manage.py runserver 0.0.0.0:8000"
       - ./:/usr/src/app/
     ports:
       - 8000:8000
